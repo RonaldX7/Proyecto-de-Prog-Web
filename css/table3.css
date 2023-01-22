@@ -1,0 +1,12 @@
+body{
+    
+    background-color: pink;
+    color: white;  
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+    color: black;
+}
+

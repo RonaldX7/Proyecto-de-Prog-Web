@@ -1,0 +1,22 @@
+php{font-family: Police serif}
+
+/*Encabezado*/
+header{
+    background-color: lightseagreen;
+
+}
+
+header img{
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+}
+
+
+/*Pie de página*/
+
+footer{
+    background-color: #17A7B3;
+    color:whitesmoke;
+    text-align: center;
+}

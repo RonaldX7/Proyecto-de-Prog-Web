@@ -1,0 +1,21 @@
+div.col-md-5 {
+  width: 50%;
+  margin: 20px auto;
+  background-color: #666666 ;
+  color: #fff;
+  padding: 15px;
+}
+
+div.col-md-5 img.izquierda {
+  float: left;
+  margin-right: 15px;
+}
+
+div.col-md-5 img.derecha {
+  float: right;
+  margin-left: 15px;
+}
+
+div.reset {
+  clear: both;
+}

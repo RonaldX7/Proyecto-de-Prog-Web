@@ -1,0 +1,155 @@
+CREATE TABLE `bddetroit`.`contacto` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(150) NOT NULL , 
+    `correo` VARCHAR(150) NOT NULL , 
+    `mensaje` TEXT NOT NULL , PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE TABLE IF NOT EXISTS tipos_usuario (
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(30) NOT NULL,
+  descripcion TEXT NULL,
+  PRIMARY KEY (id)
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO tipos_usuario(nombre) VALUES ("ADMINISTRADOR");
+
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT NOT NULL AUTO_INCREMENT,
+  dni VARCHAR(16) NOT NULL UNIQUE,
+  nombres VARCHAR(150) NOT NULL,
+  paterno VARCHAR(100) NOT NULL,
+  materno VARCHAR(45) NOT NULL,
+  correo VARCHAR(150) NOT NULL UNIQUE,
+  clave BLOB NOT NULL,
+  tipo INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_usuario_tipo
+    FOREIGN KEY (tipo)
+    REFERENCES tipos_usuario (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `bddetroit`.`categoria` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(45) NOT NULL , 
+    `descripcion` TEXT NULL , 
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE TABLE `bddetroit`.`tablahombre` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(100) NOT NULL , 
+    `descripcion` TEXT NULL , 
+    `cat` INT NOT NULL , 
+    `precio` DECIMAL(10,2) NOT NULL , 
+    `imagen` VARCHAR(255) NULL ,
+    `cantidad` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+    CONSTRAINT fk_hom_cat
+        FOREIGN KEY (cat)
+        REFERENCES categoria (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE TABLE `bddetroit`.`tablabebe` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(100) NOT NULL , 
+    `descripcion` TEXT NULL , 
+    `cat` INT NOT NULL , 
+    `precio` DECIMAL(10,2) NOT NULL , 
+    `imagen` VARCHAR(255) NULL ,
+    `cantidad` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+    CONSTRAINT fk_bebe_cat
+        FOREIGN KEY (cat)
+        REFERENCES categoria (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE TABLE `bddetroit`.`tablamujer` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(100) NOT NULL , 
+    `descripcion` TEXT NULL , 
+    `cat` INT NOT NULL , 
+    `precio` DECIMAL(10,2) NOT NULL , 
+    `imagen` VARCHAR(255) NULL ,
+    `cantidad` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+    CONSTRAINT fk_mujer_cat
+        FOREIGN KEY (cat)
+        REFERENCES categoria (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE TABLE `bddetroit`.`tablaniños` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `nombre` VARCHAR(100) NOT NULL , 
+    `descripcion` TEXT NULL , 
+    `cat` INT NOT NULL , 
+    `precio` DECIMAL(10,2) NOT NULL , 
+    `imagen` VARCHAR(255) NULL ,
+    `cantidad` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+    CONSTRAINT fk_ninos_cat
+        FOREIGN KEY (cat)
+        REFERENCES categoria (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+) ENGINE = InnoDB CHARSET=utf8mb3 
+COLLATE utf8mb3_general_ci;
+
+CREATE VIEW tablahombre_view AS 
+    SELECT 
+    p.id,
+    p.nombre,
+    p.descripcion,
+    c.nombre AS cat,
+    p.precio,
+    p.cantidad,
+    p.imagen
+    FROM tablahombre p INNER JOIN categoria c ON p.cat = c.id;
+
+CREATE VIEW tablamujer_view AS 
+    SELECT 
+    p.id,
+    p.nombre,
+    p.descripcion,
+    c.nombre AS cat,
+    p.precio,
+    p.cantidad,
+    p.imagen
+    FROM tablamujer p INNER JOIN categoria c ON p.cat = c.id;
+
+CREATE VIEW tablaniños_view AS 
+    SELECT 
+    p.id,
+    p.nombre,
+    p.descripcion,
+    c.nombre AS cat,
+    p.precio,
+    p.cantidad,
+    p.imagen
+    FROM tablaniños p INNER JOIN categoria c ON p.cat = c.id;
+
+CREATE VIEW tablabebes_view AS 
+    SELECT 
+    p.id,
+    p.nombre,
+    p.descripcion,
+    c.nombre AS cat,
+    p.precio,
+    p.cantidad,
+    p.imagen
+    FROM tablabebes p INNER JOIN categoria c ON p.cat = c.id;

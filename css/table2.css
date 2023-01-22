@@ -1,0 +1,14 @@
+
+body{
+    
+    background-color: black;
+    color: white;  
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+    color: black;
+}
+
+
